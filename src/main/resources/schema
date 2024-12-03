@@ -1,0 +1,111 @@
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8;
+USE `mydb`;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Club` (
+  `ClubName` VARCHAR(45) NOT NULL,
+  `Professor` VARCHAR(45) NULL,
+  `NumberofMember` INT NULL,
+  `INTRO` VARCHAR(100) NULL,
+  PRIMARY KEY (`ClubName`)
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`_Join` (
+  `SN` INT,
+  `CN` VARCHAR(45),
+  `Role` BOOLEAN,
+  PRIMARY KEY (`SN`, `CN`),
+  CONSTRAINT `_JOIN_CN_FK`
+    FOREIGN KEY (`CN`)
+    REFERENCES `mydb`.`Club` (`ClubName`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`User` (
+  `SN` INT NOT NULL,
+  `Dept` VARCHAR(45) NULL,
+  `CN` VARCHAR(45),
+  PRIMARY KEY (`SN`),
+  CONSTRAINT `User_CN_FK`
+   FOREIGN KEY (`CN`)
+   REFERENCES `mydb`.`_Join` (`CN`)
+   ON DELETE CASCADE
+   ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Fund` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `CN` VARCHAR(50) NULL,
+  `spend` INT NULL,
+  `date` VARCHAR(20) NULL,
+  `amount` INT NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `Fund_CN_FK`
+    FOREIGN KEY (`CN`)
+    REFERENCES `mydb`.`Club` (`ClubName`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Notice` (
+  `NID` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(20) NOT NULL,
+  `content` VARCHAR(50) NULL,
+  `date` DATE NULL,
+  `SN` INT NOT NULL,
+  `CN` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`NID`),
+  INDEX `SN_idx` (`SN` ASC),
+  INDEX `CN_idx` (`CN` ASC),
+  CONSTRAINT `Notice_SN_FK`
+    FOREIGN KEY (`SN`)
+    REFERENCES `mydb`.`User` (`SN`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE,
+  CONSTRAINT `Notice_CN_FK`
+    FOREIGN KEY (`CN`)
+    REFERENCES `mydb`.`Club` (`ClubName`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Comment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `SN` INT NOT NULL,
+  `comment` VARCHAR(45) NULL,
+  `date` DATE NULL,
+  `NID` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `SN_idx` (`SN` ASC),
+  INDEX `NID_idx` (`NID` ASC),
+  CONSTRAINT `Comment_SN_FK`
+    FOREIGN KEY (`SN`)
+    REFERENCES `mydb`.`User` (`SN`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `Comment_NID_FK`
+    FOREIGN KEY (`NID`)
+    REFERENCES `mydb`.`Notice` (`NID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`Schedule` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `date` DATE NULL,
+  `todo` VARCHAR(45) NULL,
+  `CN` VARCHAR(45),
+  PRIMARY KEY (`id`),
+  INDEX `CN_idx` (`CN` ASC),
+  CONSTRAINT `Schedule_CN_FK`
+    FOREIGN KEY (`CN`)
+    REFERENCES `mydb`.`Club` (`ClubName`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+) ENGINE = InnoDB;
