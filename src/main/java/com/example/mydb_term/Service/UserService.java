@@ -18,12 +18,11 @@ public class UserService {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter Student Number:");
-        int SN = scanner.nextInt();
-
-
         System.out.println("Enter User Dept:");
         String Dept = scanner.nextLine();
+
+        System.out.println("Enter Student Number:");
+        int SN = scanner.nextInt();
 
         UserModel UserModel = new UserModel();
         UserModel.setSN(SN);

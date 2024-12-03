@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Club` (
 CREATE TABLE IF NOT EXISTS `mydb`.`_Join` (
   `SN` INT,
   `CN` VARCHAR(45),
-  `Role` BOOLEAN,
+  `Role` TINYINT(1),
   PRIMARY KEY (`SN`, `CN`),
   CONSTRAINT `_JOIN_CN_FK`
     FOREIGN KEY (`CN`)

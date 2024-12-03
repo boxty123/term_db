@@ -57,7 +57,7 @@ public class ClubService {
             }
         }
 
-    public void deletByName(){
+    public void deleteByName(){
 
         Scanner scanner = new Scanner(System.in);
 

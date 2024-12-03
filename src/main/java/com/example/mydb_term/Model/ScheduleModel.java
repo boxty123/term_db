@@ -5,11 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JoinModel {
+public class ScheduleModel {
 
-    private String CN;
-
-    private int SN;
-
-  //  private boolean role;
+    String CN;
+    String todo;
+    String date;
 }

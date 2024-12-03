@@ -30,6 +30,7 @@ public class JoinService {
             int SN = scanner.nextInt();
 
 
+            /*
             // 역할 입력
             System.out.println("Are you admin? (true or false):");
             boolean role;
@@ -38,14 +39,15 @@ public class JoinService {
             } catch (InputMismatchException e) {
                 throw new IllegalArgumentException("Invalid role. Enter true or false.");
             }
+            */
 
             joinModel.setSN(SN);
             joinModel.setCN(clubName);
-            joinModel.setRole(role);
+            //joinModel.setRole(role);
 
             joinDAO.joinClub(joinModel);
 
-            System.out.println("Successfully joined the club!");
+            System.out.println("Successfully joined the club!!");
 
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
@@ -66,5 +68,17 @@ public class JoinService {
         joinModel.setCN(clubName);
 
         joinDAO.withdrawClub(joinModel);
+    }
+
+    public void findSNByCN(){
+
+        Scanner scanner=new Scanner(System.in);
+
+        System.out.println("Enter Club Name:");
+
+        String clubname=scanner.nextLine();
+
+        joinDAO.findAllByClubName(clubname);
+
     }
 }
