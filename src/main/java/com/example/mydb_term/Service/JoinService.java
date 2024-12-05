@@ -6,6 +6,8 @@ import com.example.mydb_term.Model.JoinModel;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class JoinService {
 
     JoinDAO joinDAO;
@@ -47,8 +49,6 @@ public class JoinService {
 
             joinDAO.joinClub(joinModel);
 
-            System.out.println("Successfully joined the club!!");
-
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -79,6 +79,19 @@ public class JoinService {
         String clubname=scanner.nextLine();
 
         joinDAO.findAllByClubName(clubname);
+
+    }
+
+    public void updateJoin(){
+        System.out.println("Enter Your StudentNumber:");
+        Scanner scanner=new Scanner(System.in);
+        int SN = parseInt(scanner.nextLine());
+        System.out.println("Check Your Current Club:");
+        String oldCN=scanner.nextLine();
+        System.out.println("Enter the new club:");
+        String newCN=scanner.nextLine();
+
+        joinDAO.updateJoin(oldCN,newCN,SN);
 
     }
 }

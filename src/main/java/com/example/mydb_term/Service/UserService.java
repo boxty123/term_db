@@ -31,6 +31,5 @@ public class UserService {
         userDAO.saveUser(UserModel);
 
         System.out.println("User saved successfully!");
-        
     }
 }

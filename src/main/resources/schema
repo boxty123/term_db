@@ -4,7 +4,7 @@ USE `mydb`;
 CREATE TABLE IF NOT EXISTS `mydb`.`Club` (
   `ClubName` VARCHAR(45) NOT NULL,
   `Professor` VARCHAR(45) NULL,
-  `NumberofMember` INT NULL,
+  `NumberofMember` INT DEFAULT 0,
   `INTRO` VARCHAR(100) NULL,
   PRIMARY KEY (`ClubName`)
 ) ENGINE = InnoDB;

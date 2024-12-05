@@ -81,6 +81,8 @@ public class MydbTermApplication {
                     case 3:
                         joinService.findSNByCN();
                         break;
+                    case 5:
+                        noticeService.findAllByTitle();break;
                     case 7:
                         fundService.findSpendByCNameDate();
                         break;
@@ -93,6 +95,8 @@ public class MydbTermApplication {
                     case 1:
                         clubService.updateClub();
                         break;
+                    case 3:
+                        joinService.updateJoin();break;
                     case 7:
                         fundService.updateFund();
                         break;

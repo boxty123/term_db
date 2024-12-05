@@ -36,4 +36,14 @@ public class NoticeService {
 
         noticeDAO.saveNotice(noticeModel);
     }
+
+    public void findAllByTitle(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the title:");
+        String title = scanner.nextLine();
+
+        noticeDAO.findAllByTitle(title);
+
+    }
 }
