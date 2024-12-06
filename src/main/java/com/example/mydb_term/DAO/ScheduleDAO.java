@@ -51,5 +51,21 @@ public class ScheduleDAO {
         }
         return todolist;
     }
+    public void updateByDate(String content, String date) {
+        String sql = "UPDATE Schedule SET content = ? WHERE date = ?";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+
+            stmt.setString(1,content );
+            stmt.setString(2, date);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

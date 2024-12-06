@@ -10,20 +10,37 @@ import java.sql.SQLException;
 
 public class NoticeDAO {
 
-    public void saveNotice(NoticeModel NoticeModel) {
-        String query = "INSERT INTO Notice (title, content, date) VALUES (?, ?, ?)";
-        try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement stmt = con.prepareStatement(query)) {
+    public void saveNotice(NoticeModel noticeModel) {
+        String checkQuery = "SELECT 1 FROM _Join WHERE SN = ? AND CN = ?";
+        String insertQuery = "INSERT INTO Notice (title, content, date, SN, CN) VALUES (?, ?, ?, ?, ?)";
 
-            stmt.setString(1, NoticeModel.getTitle());
-            stmt.setString(2, NoticeModel.getContent());
-            stmt.setString(3,NoticeModel.getDate());
-            stmt.executeUpdate();
+        try (Connection con = DatabaseConnection.getConnection()) {
+
+            try (PreparedStatement checkStmt = con.prepareStatement(checkQuery)) {
+                checkStmt.setInt(1, noticeModel.getSN());
+                checkStmt.setString(2, noticeModel.getCN());
+
+                try (ResultSet rs = checkStmt.executeQuery()) {
+                    if (!rs.next()) {
+                        throw new RuntimeException("You are not member in the Club");
+                    }
+                }
+            }
+            try (PreparedStatement insertStmt = con.prepareStatement(insertQuery)) {
+                insertStmt.setString(1, noticeModel.getTitle());
+                insertStmt.setString(2, noticeModel.getContent());
+                insertStmt.setString(3, noticeModel.getDate());
+                insertStmt.setInt(4, noticeModel.getSN());
+                insertStmt.setString(5, noticeModel.getCN());
+
+                insertStmt.executeUpdate();
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException("Failed to save Notice", e);
         }
     }
+
 
     public void findAllByTitle(String title) {
         String query = "SELECT title, COUNT(*) AS count FROM Notice WHERE title LIKE ? GROUP BY title";
@@ -46,4 +63,20 @@ public class NoticeDAO {
         }
     }
 
+    public void updateByTitle(String old_title, String new_title) {
+
+        String sql = "UPDATE Notice SET title = ? WHERE title = ?";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, new_title);
+            stmt.setString(2, old_title);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

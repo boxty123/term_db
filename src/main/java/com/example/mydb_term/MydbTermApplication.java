@@ -114,12 +114,13 @@ public class MydbTermApplication {
                         joinService.updateJoin();
                         break;
                     case 4:
-                        break;
-                    case 5:
                         noticeService.updateNotice();
                         break;
-                    case 6:
+                    case 5:
                         commentService.updateComment();
+                        break;
+                    case 6:
+                        scheduleService.updateByDate();
                         break;
                     case 7:
                         fundService.updateFund();

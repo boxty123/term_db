@@ -49,4 +49,16 @@ public class CommentService {
 
     }
 
+    public void updateComment() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the Comment ID");
+        int ID = scanner.nextInt();
+
+        System.out.println("Rewrite content");
+        String content = scanner.nextLine();
+
+        commentDAO.updateById(ID,content);
+    }
 }

@@ -16,7 +16,7 @@ public class ScheduleService {
 
     public void saveSchedule() {
 
-        ScheduleModel ScheduleModel=new ScheduleModel();
+        ScheduleModel ScheduleModel = new ScheduleModel();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -32,7 +32,7 @@ public class ScheduleService {
         ScheduleModel.setTodo(todo);
         ScheduleModel.setDate(date);
         ScheduleModel.setCN(CN);
-        
+
         ScheduleDAO.saveSchedule(ScheduleModel);
     }
 
@@ -45,7 +45,20 @@ public class ScheduleService {
         System.out.println("Enter the ClubName:");
         String clubname = scanner.nextLine();
 
-        ScheduleDAO.findAllByDateandCN(date,clubname);
+        ScheduleDAO.findAllByDateandCN(date, clubname);
+    }
+
+    public void updateByDate() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the date:");
+        String date = scanner.nextLine();
+
+        System.out.println("Rewrite the content:");
+        String content = scanner.nextLine();
+
+        ScheduleDAO.updateByDate(date,content);
 
     }
 }

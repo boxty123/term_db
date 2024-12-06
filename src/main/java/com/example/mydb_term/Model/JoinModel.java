@@ -11,5 +11,5 @@ public class JoinModel {
 
     private int SN;
 
-  //  private boolean role;
+    private boolean role;
 }

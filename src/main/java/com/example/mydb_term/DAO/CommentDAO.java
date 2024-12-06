@@ -77,4 +77,20 @@ public class CommentDAO {
         }
     }
 
+    public void updateById(int id,String content) {
+        String sql = "UPDATE Commnet SET content = ? WHERE id = ?";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, content);
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

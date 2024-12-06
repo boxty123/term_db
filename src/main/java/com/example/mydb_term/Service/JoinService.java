@@ -31,9 +31,6 @@ public class JoinService {
             System.out.println("Enter Student Number:");
             int SN = scanner.nextInt();
 
-
-            /*
-            // 역할 입력
             System.out.println("Are you admin? (true or false):");
             boolean role;
             try {
@@ -41,11 +38,10 @@ public class JoinService {
             } catch (InputMismatchException e) {
                 throw new IllegalArgumentException("Invalid role. Enter true or false.");
             }
-            */
 
             joinModel.setSN(SN);
             joinModel.setCN(clubName);
-            //joinModel.setRole(role);
+            joinModel.setRole(role);
 
             joinDAO.joinClub(joinModel);
 
