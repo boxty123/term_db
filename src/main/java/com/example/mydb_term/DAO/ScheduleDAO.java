@@ -5,7 +5,10 @@ import com.example.mydb_term.Model.ScheduleModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScheduleDAO {
     public void saveSchedule(ScheduleModel ScheduleModel) {
@@ -22,4 +25,31 @@ public class ScheduleDAO {
             throw new RuntimeException("Failed to save Schedule", e);
         }
     }
+
+    public List<String> findAllByDateandCN(String date, String clubname) {
+        String sql = "SELECT todo FROM Schedule WHERE CN = ? AND date = ?";
+        List<String> todolist = new ArrayList<>();
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, clubname);
+            stmt.setString(2, date);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                System.out.println("Here are todos for the date: " + date);
+                while (rs.next()) {
+                    todolist.add(rs.getString("todo"));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error occurred " + e.getMessage(), e);
+        }
+
+        if (todolist.isEmpty()) {
+            System.out.println("No todos founds.");
+        }
+        return todolist;
+    }
+
 }

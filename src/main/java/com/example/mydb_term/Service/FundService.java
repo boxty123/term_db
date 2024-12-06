@@ -14,7 +14,7 @@ public class FundService {
         System.out.println("Enter Club Name:");
         String clubName = scanner.nextLine();
         System.out.println("Enter spend:");
-        int spend=scanner.nextInt();
+        int spend = scanner.nextInt();
         fundDAO.updateFund(clubName,spend);
     }
 

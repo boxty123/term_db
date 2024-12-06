@@ -25,6 +25,7 @@ public class MydbTermApplication {
         JoinService joinService = new JoinService();
         NoticeService noticeService=new NoticeService();
         ScheduleService scheduleService=new ScheduleService();
+        CommentService commentService=new CommentService();
 
         System.out.println("1.Insert");
         System.out.println("2.Delete");
@@ -35,7 +36,7 @@ public class MydbTermApplication {
         Scanner table;
 
         switch (menu.nextInt()) {
-            case 1:
+            case 1: //insert
                 printMenu();
                 table = new Scanner(System.in);
                 switch (table.nextInt()) {
@@ -49,15 +50,20 @@ public class MydbTermApplication {
                         joinService.join();
                         break;
                     case 4:
-                        noticeService.saveNotice();break;
-                    case 5:break;
-                    case 6: scheduleService.saveSchedule();break;
+                        noticeService.saveNotice();
+                        break;
+                    case 5:
+                        commentService.saveComment();
+                        break;
+                    case 6:
+                        scheduleService.saveSchedule();
+                        break;
                     case 7:
                         System.out.println("You can't create only Fund");
                         break;
                 }
                 break;
-            case 2:
+            case 2: //delete
                 printMenu();
                 table = new Scanner(System.in);
                 switch (table.nextInt()) {
@@ -71,24 +77,33 @@ public class MydbTermApplication {
                         break;
                 }
                 break;
-            case 3:
+            case 3: //find
                 printMenu();
                 table = new Scanner(System.in);
                 switch (table.nextInt()) {
-                    //case 1:clubService.findByName();break;
+                    case 1:clubService.findByName();
+                        break;
                     case 2:
                         break;
                     case 3:
                         joinService.findSNByCN();
                         break;
+                    case 4:
+                        noticeService.findAllByTitle();
+                        break;
                     case 5:
-                        noticeService.findAllByTitle();break;
+                        commentService.findAllComment();
+                        commentService.findAllByNID();
+                        break;
+                    case 6:
+                        scheduleService.findAllByDate();
+                        break;
                     case 7:
                         fundService.findSpendByCNameDate();
                         break;
                 }
                 break;
-            case 4:
+            case 4: //update
                 printMenu();
                 table = new Scanner(System.in);
                 switch (table.nextInt()) {
@@ -96,7 +111,16 @@ public class MydbTermApplication {
                         clubService.updateClub();
                         break;
                     case 3:
-                        joinService.updateJoin();break;
+                        joinService.updateJoin();
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        noticeService.updateNotice();
+                        break;
+                    case 6:
+                        commentService.updateComment();
+                        break;
                     case 7:
                         fundService.updateFund();
                         break;

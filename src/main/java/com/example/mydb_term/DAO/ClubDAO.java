@@ -5,6 +5,7 @@ import com.example.mydb_term.Model.ClubModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ClubDAO {
@@ -39,6 +40,35 @@ public class ClubDAO {
             throw new RuntimeException("Failed to delete club by name", e);
         }
     }
+
+    public void findByName(String clubName) {
+        String sql = "SELECT ClubName, NumberofMember, INTRO, Amount FROM Club, Fund WHERE Club.ClubName = ? AND Fund.CN = ?";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setString(1, clubName);
+            stmt.setString(2, clubName);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    System.out.println("Here is Club Information:");
+                    System.out.printf("ClubName: %s, Number of Members: %d, Intro: %s, Fund: %d%n",
+                            rs.getString("ClubName"),
+                            rs.getInt("NumberofMember"),
+                            rs.getString("INTRO"),
+                            rs.getInt("Amount"));
+                } else {
+                    System.out.println("No such club found.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error occurred while finding club by name: " + e.getMessage(), e);
+        }
+    }
+
+
+
 
     public void updateClub(String clubName, String newClubName) {
         String sql = "UPDATE Club SET ClubName=? WHERE ClubName = ?";

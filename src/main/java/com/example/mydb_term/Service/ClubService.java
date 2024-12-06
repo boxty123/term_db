@@ -74,14 +74,7 @@ public class ClubService {
         String clubName = scanner.nextLine();
         System.out.println("Here is Club Information");
 
-        Club_FundDTO club_fundDTO=new Club_FundDTO();
-
-        club_fundDTO=club_fundDTO.findClubByName(clubName);
-
-        System.out.printf("Professor: %s, Number of Members: %d, Amount: %d%n",
-                club_fundDTO.getProfessor(),
-                club_fundDTO.getNumberOfMembers(),
-                club_fundDTO.getAmount());
+        clubDAO.findByName(clubName);
 
     }
 

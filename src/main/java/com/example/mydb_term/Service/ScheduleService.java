@@ -35,4 +35,17 @@ public class ScheduleService {
         
         ScheduleDAO.saveSchedule(ScheduleModel);
     }
+
+    public void findAllByDate() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the date:");
+        String date = scanner.nextLine();
+
+        System.out.println("Enter the ClubName:");
+        String clubname = scanner.nextLine();
+
+        ScheduleDAO.findAllByDateandCN(date,clubname);
+
+    }
 }
