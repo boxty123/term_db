@@ -29,15 +29,17 @@ public class ClubDAO {
 
     // 클럽 삭제
     public void deleteByName(String clubName) {
-        String query = "DELETE FROM Club WHERE ClubName = ?";
+        String query = "DELETE FROM Club,Fund WHERE ClubName = ? and CN=?";
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement stmt = con.prepareStatement(query)) {
 
             stmt.setString(1, clubName);
+            stmt.setString(2, clubName);
+
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to delete club by name", e);
+            throw new RuntimeException("Failed to delete club and fund by name", e);
         }
     }
 

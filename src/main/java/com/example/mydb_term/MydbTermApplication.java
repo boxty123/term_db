@@ -59,7 +59,7 @@ public class MydbTermApplication {
                         scheduleService.saveSchedule();
                         break;
                     case 7:
-                        System.out.println("You can't create only Fund");
+                        System.out.println("You can't create Fund only");
                         break;
                 }
                 break;
@@ -71,24 +71,39 @@ public class MydbTermApplication {
                         clubService.deleteByName();
                         break;
                     case 2:
+                        userService.deleteBySN();
                         break;
                     case 3:
                         joinService.withdraw();
                         break;
+                    case 4:
+                        noticeService.deleteByTitleAndCN();
+                        break;
+                    case 5:
+                        commentService.deleteById();
+                        break;
+                    case 6:
+                        scheduleService.deleteByDate();
+                        break;
+                    case 7:
+                        System.out.println("you cant delete fund only");
                 }
                 break;
             case 3: //find
                 printMenu();
                 table = new Scanner(System.in);
                 switch (table.nextInt()) {
-                    case 1:clubService.findByName();
+                    case 1:
+                        clubService.findByName();
                         break;
                     case 2:
+                        userService.findCNBySN();
                         break;
                     case 3:
                         joinService.findSNByCN();
                         break;
                     case 4:
+                        noticeService.findAllByCN();
                         noticeService.findAllByTitle();
                         break;
                     case 5:

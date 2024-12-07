@@ -61,4 +61,12 @@ public class ScheduleService {
         ScheduleDAO.updateByDate(date,content);
 
     }
+
+    public void deleteByDate() {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Enter the Date:");
+        String date = scanner.nextLine();
+
+        ScheduleDAO.deleteByDate(date);
+    }
 }

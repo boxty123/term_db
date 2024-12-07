@@ -68,4 +68,19 @@ public class ScheduleDAO {
         }
     }
 
+    public void deleteByDate(String date) {
+        String query = "DELETE FROM Schedule WHERE date = ?";
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)) {
+
+            stmt.setString(1, date);
+
+            stmt.executeUpdate();
+
+            System.out.println("delete successfully");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to delete schedule by name", e);
+        }
+    }
 }

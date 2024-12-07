@@ -61,4 +61,13 @@ public class CommentService {
 
         commentDAO.updateById(ID,content);
     }
+
+    public void deleteById() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the ID");
+        int ID = scanner.nextInt();
+
+        commentDAO.deleteByID(ID);
+    }
 }

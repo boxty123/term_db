@@ -6,6 +6,8 @@ import com.example.mydb_term.Model.UserModel;
 
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class UserService {
 
 
@@ -31,5 +33,34 @@ public class UserService {
         userDAO.saveUser(UserModel);
 
         System.out.println("User saved successfully!");
+    }
+
+    public void deleteBySN(){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter User Student Number:");
+        int SN = scanner.nextInt();
+
+        userDAO.deleteBySN(SN);
+
+
+    }
+
+    public void findCNBySN() {
+
+        Scanner scanner = new Scanner(System.in);
+
+
+        System.out.println("Enter Student Number:");
+        String SN = scanner.nextLine();
+
+        if(SN.isEmpty()){
+            System.out.println("Find All ...");
+            userDAO.findAll();
+        }
+        else{
+            userDAO.findCNBySN(parseInt(SN));
+        }
     }
 }
