@@ -53,6 +53,7 @@ public class UserService {
 
 
         System.out.println("Enter Student Number:");
+        System.out.println("Press Enter if you want all student");
         String SN = scanner.nextLine();
 
         if(SN.isEmpty()){

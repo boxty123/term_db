@@ -8,7 +8,7 @@ import lombok.Setter;
 public class CommentModel {
     private int CID;
     private int NID;
-    private String content;
+    private String comment;
     private String date;
 
 }

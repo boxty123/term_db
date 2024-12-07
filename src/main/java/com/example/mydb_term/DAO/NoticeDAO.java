@@ -59,19 +59,21 @@ public class NoticeDAO {
     }
 
 
-    public void findAllByTitle(String title) {
-        String query = "SELECT * FROM Notice WHERE title LIKE ? ";
+    public void findAllByTitle(String title,String CN) {
+        String query = "SELECT * FROM Notice WHERE title LIKE ? and CN=? ";
 
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement stmt = con.prepareStatement(query)) {
 
             stmt.setString(1, "%" + title + "%");
+            stmt.setString(2,CN);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
+                    int foundID=rs.getInt("NID");
                     String foundTitle = rs.getString("title");
                     String foundCN=rs.getString("CN");
-                    System.out.println("Title: " + foundTitle + ", ClubName: "+foundCN);
+                    System.out.println("NID: "+foundID+"Title: " + foundTitle + ", ClubName: "+foundCN);
                 }
             }
         } catch (SQLException e) {
@@ -79,7 +81,7 @@ public class NoticeDAO {
         }
     }
     public void findAllByCN(String CN) {
-        String query = "SELECT title, COUNT(*) AS count FROM Notice WHERE CN=? GROUP BY title";
+        String query = "SELECT NID, title, COUNT(*) AS count FROM Notice WHERE CN = ? GROUP BY NID, title";
 
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement stmt = con.prepareStatement(query)) {
@@ -88,17 +90,17 @@ public class NoticeDAO {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
+                    String foundNID = rs.getString("NID");
                     String foundTitle = rs.getString("title");
                     int count = rs.getInt("count");
 
-                    System.out.println("Title: " + foundTitle + ", Count: " + count);
+                    System.out.println("NID: " + foundNID + ", Title: " + foundTitle + ", Count: " + count);
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to find notices by title", e);
         }
     }
-
 
     public void updateByTitle(String old_title, String new_title) {
 

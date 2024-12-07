@@ -63,12 +63,10 @@ public class UserDAO {
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    System.out.printf("Student Number: %s ",rs.getString("SN"));
+                while (rs.next()) {
+                    System.out.printf("Student Number: %s ", rs.getString("SN"));
                     System.out.printf("ClubName: %s\n",
                             rs.getString("CN"));
-                } else {
-                    System.out.println("No club found.");
                 }
             }
         } catch (SQLException e) {

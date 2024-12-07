@@ -55,8 +55,9 @@ public class NoticeService {
 
         System.out.println("Enter the title:");
         String title = scanner.nextLine();
-
-        noticeDAO.findAllByTitle(title);
+        System.out.println("Enter the ClubName:");
+        String CN = scanner.nextLine();
+        noticeDAO.findAllByTitle(title,CN);
 
     }
     public void findAllByCN(){

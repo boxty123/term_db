@@ -13,7 +13,7 @@ import java.util.List;
 public class CommentDAO {
     public void saveComment(CommentModel commentModel) {
         String checkQuery = "SELECT 1 FROM Notice WHERE NID = ?";
-        String query = "INSERT INTO Comment (content, date, NID) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Comment (comment, date, NID) VALUES (?, ?, ?)";
 
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement stmt2 = con.prepareStatement(checkQuery);
@@ -22,7 +22,7 @@ public class CommentDAO {
             stmt2.setInt(1, commentModel.getNID());
             try (ResultSet rs = stmt2.executeQuery()) {
                 if (rs.next()) {
-                    stmt1.setString(1, commentModel.getContent());
+                    stmt1.setString(1, commentModel.getComment());
                     stmt1.setString(2, commentModel.getDate());
                     stmt1.setInt(3, commentModel.getNID());
                     stmt1.executeUpdate();
@@ -63,7 +63,7 @@ public class CommentDAO {
                 CommentModel commentModel = new CommentModel();
                 commentModel.setCID(rs.getInt("id"));
                 commentModel.setNID(rs.getInt("SN"));
-                commentModel.setContent(rs.getString("comment"));
+                commentModel.setComment(rs.getString("comment"));
                 commentModel.setDate(rs.getString("date"));
                 commentModel.setNID(rs.getInt("NID"));
 

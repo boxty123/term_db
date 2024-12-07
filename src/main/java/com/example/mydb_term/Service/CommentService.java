@@ -3,6 +3,8 @@ package com.example.mydb_term.Service;
 import com.example.mydb_term.DAO.CommentDAO;
 import com.example.mydb_term.Model.CommentModel;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
@@ -19,11 +21,16 @@ public class CommentService {
         scanner.nextLine();
 
         System.out.println("Reply:");
-        String content = scanner.nextLine();
+        String comment = scanner.nextLine();
 
         CommentModel commentModel = new CommentModel();
         commentModel.setNID(NID);
-        commentModel.setContent(content);
+        commentModel.setComment(comment);
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = now.format(formatter);
+        commentModel.setDate(date);
 
         commentDAO.saveComment(commentModel);
     }

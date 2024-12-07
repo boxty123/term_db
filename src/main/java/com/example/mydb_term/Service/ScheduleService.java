@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class ScheduleService {
 
-    private final ScheduleDAO ScheduleDAO;
+    private final ScheduleDAO scheduleDAO;
 
     public ScheduleService() {
-        this.ScheduleDAO = new ScheduleDAO();
+        this.scheduleDAO = new ScheduleDAO();
     }
 
     public void saveSchedule() {
@@ -33,33 +33,40 @@ public class ScheduleService {
         ScheduleModel.setDate(date);
         ScheduleModel.setCN(CN);
 
-        ScheduleDAO.saveSchedule(ScheduleModel);
+        scheduleDAO.saveSchedule(ScheduleModel);
     }
 
     public void findAllByDate() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter the date:");
-        String date = scanner.nextLine();
 
         System.out.println("Enter the ClubName:");
         String clubname = scanner.nextLine();
 
-        ScheduleDAO.findAllByDateandCN(date, clubname);
+        System.out.println("If you want show all schedule press enter, Or Enter the date: ");
+        String date = scanner.nextLine();
+        if (date.isEmpty())
+            scheduleDAO.findAllByCN(clubname);
+        else {
+            scheduleDAO.findAllByDateandCN(date, clubname);
+        }
     }
+
 
     public void updateByDate() {
 
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Enter the ClubName:");
+        String CN = scanner.nextLine();
+
         System.out.println("Enter the date:");
         String date = scanner.nextLine();
 
-        System.out.println("Rewrite the content:");
-        String content = scanner.nextLine();
+        System.out.println("Rewrite the todo:");
+        String todo = scanner.nextLine();
 
-        ScheduleDAO.updateByDate(date,content);
-
+        scheduleDAO.updateByDate(todo,date,CN);
     }
 
     public void deleteByDate() {
@@ -67,6 +74,6 @@ public class ScheduleService {
         System.out.println("Enter the Date:");
         String date = scanner.nextLine();
 
-        ScheduleDAO.deleteByDate(date);
+        scheduleDAO.deleteByDate(date);
     }
 }
