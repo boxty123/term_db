@@ -4,6 +4,10 @@ import com.example.mydb_term.Service.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -11,6 +15,10 @@ public class MydbTermApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MydbTermApplication.class, args);
+
+        //create table
+        String filePath = "C:/Users/junghyun/IdeaProjects/mydb_term/src/main/resources/schema";
+        executeSQLScript(filePath);
 
 
         while(true) {
@@ -145,7 +153,7 @@ public class MydbTermApplication {
         }
     }
 
-        public static void printMenu () {
+    public static void printMenu () {
             System.out.println("1.Club");
             System.out.println("2.User");
             System.out.println("3.Join");
@@ -154,5 +162,29 @@ public class MydbTermApplication {
             System.out.println("6.Schedule");
             System.out.println("7.Funds");
         }
+    public static void executeSQLScript(String filePath) {
+        try (Connection con = DatabaseConnection.getConnection();
+             Statement stmt = con.createStatement();
+             BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+
+            StringBuilder sqlBuilder = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.isEmpty() || line.startsWith("--") || line.startsWith("#")) {
+                    continue;
+                }
+                sqlBuilder.append(line);
+                if (line.endsWith(";")) {
+                    stmt.execute(sqlBuilder.toString());
+                    sqlBuilder.setLength(0);
+                }
+            }
+            System.out.println("SQL script executed successfully.");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to execute SQL script", e);
+        }
+    }
 
 }
