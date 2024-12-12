@@ -73,7 +73,8 @@ public class NoticeDAO {
                     int foundID=rs.getInt("NID");
                     String foundTitle = rs.getString("title");
                     String foundCN=rs.getString("CN");
-                    System.out.println("NID: "+foundID+"Title: " + foundTitle + ", ClubName: "+foundCN);
+                    String foundContent=rs.getString("content");
+                    System.out.println("NID: "+foundID+", Title: " + foundTitle +", Content: "+foundContent+ ", ClubName: "+foundCN);
                 }
             }
         } catch (SQLException e) {

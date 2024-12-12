@@ -19,6 +19,7 @@ public class FundDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 while(rs.next()) {
                     spendList.add(rs.getInt("spend"));
+                    System.out.println(rs.getInt("spend"));
                 }
                 return spendList.isEmpty()? null:spendList;
             }

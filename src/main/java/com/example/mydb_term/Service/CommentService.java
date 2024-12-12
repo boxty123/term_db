@@ -18,6 +18,9 @@ public class CommentService {
         System.out.println("Enter the Notice ID:");
         int NID = scanner.nextInt();
 
+        System.out.println("Enter the SN:");
+        int SN = scanner.nextInt();
+
         scanner.nextLine();
 
         System.out.println("Reply:");
@@ -26,6 +29,7 @@ public class CommentService {
         CommentModel commentModel = new CommentModel();
         commentModel.setNID(NID);
         commentModel.setComment(comment);
+        commentModel.setSN(SN);
 
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -41,10 +45,10 @@ public class CommentService {
         Scanner scanner = new Scanner(System.in);
 
 
-        System.out.println("Enter the Comment ID:");
+        System.out.println("Enter the Notice ID:");
         int ID = scanner.nextInt();
 
-        commentDAO.deleteByID(ID);
+        commentDAO.findCommentByNid(ID);
 
     }
 

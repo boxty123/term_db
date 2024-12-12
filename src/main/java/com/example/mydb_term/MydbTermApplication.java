@@ -16,7 +16,7 @@ public class MydbTermApplication {
     public static void main(String[] args) {
         SpringApplication.run(MydbTermApplication.class, args);
 
-        //create table
+
         String filePath = "C:/Users/junghyun/IdeaProjects/mydb_term/src/main/resources/schema";
         executeSQLScript(filePath);
 
@@ -67,7 +67,7 @@ public class MydbTermApplication {
                         scheduleService.saveSchedule();
                         break;
                     case 7:
-                        System.out.println("You can't create Fund only");
+                        System.out.println("You can't create Fund only. Use Update");
                         break;
                 }
                 break;

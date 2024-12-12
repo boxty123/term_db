@@ -13,7 +13,7 @@ import java.util.List;
 public class CommentDAO {
     public void saveComment(CommentModel commentModel) {
         String checkQuery = "SELECT 1 FROM Notice WHERE NID = ?";
-        String query = "INSERT INTO Comment (comment, date, NID) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Comment (comment, date, NID, SN) VALUES (?, ?, ?,?)";
 
         try (Connection con = DatabaseConnection.getConnection();
              PreparedStatement stmt2 = con.prepareStatement(checkQuery);
@@ -25,6 +25,7 @@ public class CommentDAO {
                     stmt1.setString(1, commentModel.getComment());
                     stmt1.setString(2, commentModel.getDate());
                     stmt1.setInt(3, commentModel.getNID());
+                    stmt1.setInt(4,commentModel.getSN());
                     stmt1.executeUpdate();
                     System.out.println("Comment saved successfully.");
                 } else {
@@ -67,6 +68,8 @@ public class CommentDAO {
                 commentModel.setDate(rs.getString("date"));
                 commentModel.setNID(rs.getInt("NID"));
 
+                System.out.println(commentModel.getComment()+", "+commentModel.getDate()+", "+commentModel.getNID());
+
                 commentModelList.add(commentModel);
             }
 
@@ -90,6 +93,38 @@ public class CommentDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void findCommentByNid(int id) {
+        String sql = "SELECT * FROM Comment WHERE NID = ?";
+        List<CommentModel> commentModelList = new ArrayList<>();
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CommentModel commentModel = new CommentModel();
+                    commentModel.setCID(rs.getInt("id"));
+                    commentModel.setSN(rs.getInt("SN"));
+                    commentModel.setComment(rs.getString("comment"));
+                    commentModel.setDate(rs.getString("date"));
+                    commentModel.setNID(rs.getInt("NID"));
+
+                   System.out.println("Comment: " + commentModel.getComment() + ", " +
+                           "Date: " + commentModel.getDate() + ", " +
+                           "NID: " + commentModel.getNID()
+                    );
+
+                    commentModelList.add(commentModel);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching comments", e);
         }
     }
 

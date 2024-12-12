@@ -72,7 +72,6 @@ public class ClubService {
 
         System.out.println("Enter Club Name:");
         String clubName = scanner.nextLine();
-        System.out.println("Here is Club Information");
 
         clubDAO.findByName(clubName);
 
