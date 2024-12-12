@@ -17,8 +17,8 @@ public class MydbTermApplication {
         SpringApplication.run(MydbTermApplication.class, args);
 
 
-        String filePath = "C:/Users/junghyun/IdeaProjects/mydb_term/src/main/resources/schema";
-        executeSQLScript(filePath);
+       // String filePath = "C:/Users/junghyun/IdeaProjects/mydb_term/src/main/resources/schema";
+       // executeSQLScript(filePath);
 
 
         while(true) {
